@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Questions
 # Create your views here.
 def home(request):
-    return HttpResponse('<h1>Hello world<h1>')
+    posts = Questions.objects.all()
+    return render(request, 'myapp/home.html', {'posts':posts})
 
 def test(request):
     return HttpResponse('<h1>Test Page</h1>')
