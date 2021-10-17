@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Questions
 # Create your views here.
-def home(request):
-    posts = Questions.objects.all()
-    return render(request, 'myapp/home.html', {'posts':posts})
 
-def test(request):
-    return HttpResponse('<h1>Test Page</h1>')
+def home(request):
+    myapp = Questions.objects.order_by('-created_at')
+    context = {
+        'myapp': myapp,
+        'title': 'Список новостей'
+    }
+    return render(request, template_name='myapp/home.html', context=context)
